@@ -1,3 +1,23 @@
-<p>
-  quiz works!
-</p>
+<div class="container">
+  <div class="card mx-auto" style="width: 500xp;margin-top: 100px">
+    <div class="card-header text-center">
+      <h3>{{quizTitle}}</h3>
+    </div>
+    <div class="card-body">
+      <form *ngIf="loadQuestion" [formGroup]="quizForm">
+        {{currentQues | json}}
+        <p>
+          <b>Q{{currentQues.id}}</b>. {{currentQues.question}}
+        </p>
+        <div>
+          <div *ngFor="let option of currentQues.options;let i=index">
+            <input type="radio" value={{i}} formControlName="answers" (change)="getAns($event)"> {{option}}
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-success" (click)="submitAns()">Submit Answer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

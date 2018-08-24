@@ -1,3 +1,43 @@
-<p>
-  home works!
-</p>
+<div class="container">
+  <ul class="nav nav-tabs bg-dark text-white">
+    <div class="nav-item">
+      <li class="nav-link active" href="#">Home</li>
+    </div>
+    <div class="nav-item">
+      <li class="nav-link" href="#">About Us</li>
+    </div>
+    <div class="nav-item">
+      <li class="nav-link" href="#">Contact Us</li>
+    </div>
+  </ul>
+</div>
+
+<div class="container">
+  <div class="card mx-auto mt-5" style="width: 500px">
+    <div class="card-header text-center">
+      <h3>Quiz Rules</h3>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li>Total 10 Questions</li>
+        <li>Question Types : Multiple Choice,Single Choice, True/False</li>
+        <li>Answer once submitted cannot be changed</li>
+        <li>Correct Answer : +1 marks</li>
+        <li>No negative Marking</li>
+      </ul>
+      <div class="form-group" style="margin-left: 20px">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="agree" (change)="checkError()">
+          <label class="form-check-label" for="gridCheck">
+            <span class="text-info">Agree to Terms and Condition</span>
+            <div>
+              <small *ngIf="error" class="text-danger">{{error}}</small>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-info" (click)="startQuiz()">Start Quiz</button>
+      </div>
+    </div>
+  </div>

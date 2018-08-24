@@ -1,9 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class LoadQuizService {
+  private _url = "https://opentdb.com/api.php?amount=10&category=18";
+  constructor(private _http: HttpClient) {}
 
-  constructor() { }
+  loadQuiz() {
+    return this._http.get(this._url);
+  }
 }
