@@ -9,6 +9,12 @@ import { Router } from "@angular/router";
 export class HomeComponent implements OnInit {
   agree;
   error: string = "";
+  quizTopics = [
+    { category_id: "18", name: "Computer" },
+    { category_id: "19", name: "Mathematics" },
+    { category_id: "31", name: "Anime/Manga" }
+  ];
+  difficultyLevels = ["easy", "medium", "hard"];
   constructor(private router: Router) {}
 
   ngOnInit() {}

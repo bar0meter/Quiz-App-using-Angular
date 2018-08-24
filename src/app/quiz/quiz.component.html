@@ -5,7 +5,6 @@
     </div>
     <div class="card-body">
       <form *ngIf="loadQuestion" [formGroup]="quizForm">
-        {{currentQues | json}}
         <p>
           <b>Q{{currentQues.id}}</b>. {{currentQues.question}}
         </p>
@@ -18,6 +17,16 @@
           <button class="btn btn-success" (click)="submitAns()">Submit Answer</button>
         </div>
       </form>
+    </div>
+    <div class="card-footer text-center bg-dark">
+      <div class="row">
+        <div class="col-6">
+          <span class="text-white">Question Diffculty Level : {{currentQues.difficulty | uppercase}}</span>
+        </div>
+        <div class="col-6">
+          <span class="text-white">Type : {{currentQues.type | uppercase}}</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

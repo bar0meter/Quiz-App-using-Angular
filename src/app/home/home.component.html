@@ -13,6 +13,23 @@
 </div>
 
 <div class="container">
+  <div class="jumbotron">
+    <h3 class="text-center mb-3">QUIZ TOPICS</h3>
+    <form action="" class="form form-inline justify-content-center">
+      <select class="form-control mr-2">
+        <option hidden selected></option>
+        <option *ngFor="let cat of quizTopics" value="{{cat.category_id}}">{{cat.name}}</option>
+      </select>
+      <input type="text" class="form-control mr-2" placeholder="No of Questions">
+      <select class="form-control">
+        <option value="" selected></option>
+        <option *ngFor="let diff of difficultyLevels" value="{{diff}}">{{diff | uppercase}}</option>
+      </select>
+    </form>
+  </div>
+</div>
+
+<div class="container">
   <div class="card mx-auto mt-5" style="width: 500px">
     <div class="card-header text-center">
       <h3>Quiz Rules</h3>

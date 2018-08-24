@@ -34,6 +34,7 @@ export class SignInComponent implements OnInit {
       if (data["username"] === user && data["password"] === pass) {
         console.log(`Welcome ${user}`);
         this.signIn = true;
+        this.router.navigateByUrl("/home");
       }
     });
   }

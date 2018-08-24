@@ -1,0 +1,20 @@
+<div class="container" *ngIf="quizSubmitted">
+  <div class="card mx-auto" style="width:500px">
+    <div class="card-header text-center">
+      <h3>QUIZ RESULT</h3>
+    </div>
+    <div class="card-body text-center">
+      <p>U scored {{quizResult.correct}} out of {{totalQues}}</p>
+    </div>
+    <div class="card-footer text-center">
+      <div class="row">
+        <div class="col-6">
+          <a routerLink="/quiz">Retake Quiz</a>
+        </div>
+        <div class="col-6">
+          <a routerLink="/home">Go to Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

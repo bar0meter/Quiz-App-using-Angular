@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { LoadQuizService } from "../load-quiz.service";
 import { FormGroup, FormBuilder } from "@angular/forms";
+import { Router } from "@angular/router";
+import { EvaluateQuizService } from "../evaluate-quiz.service";
 
 @Component({
   selector: "app-quiz",
@@ -16,7 +18,12 @@ export class QuizComponent implements OnInit {
   loadQuestion: boolean = false;
   selectedAns: string = "";
   submittedAns: Object[] = [];
-  constructor(private ser: LoadQuizService, private fb: FormBuilder) {}
+  constructor(
+    private ser: LoadQuizService,
+    private fb: FormBuilder,
+    private router: Router,
+    private evaluateQuiz: EvaluateQuizService
+  ) {}
 
   ngOnInit() {
     this.quizForm = this.fb.group({
@@ -60,38 +67,37 @@ export class QuizComponent implements OnInit {
     let options = [...incorrect_options, correct_option];
     this.shuffleArray(options);
     this.formatArray(options);
-    // console.log(options);
     this.currentQues = {
       id: index + 1,
-      type: quiz.type,
+      type: quiz.type === "boolean" ? "True/False" : quiz.type,
       question: this.formatText(quiz.question),
       options: options,
       correctAns: correct_option,
       difficulty: quiz.difficulty
     };
-    // console.log(this.currentQues);
   }
 
   getAns(e) {
-    // this.selectedAns = e.target.value;
     let selectedOption = this.quizForm.get("answers").value;
     this.selectedAns = this.currentQues["options"][selectedOption];
   }
 
   submitAns() {
-    console.log("Thank you for submitting");
     let tempAns = {
       index: this.currentQues["id"],
       submittedAns: this.selectedAns,
       correctAns: this.currentQues["correctAns"]
     };
     this.submittedAns.push(tempAns);
-    console.log(this.submittedAns);
     this.quizForm.get("answers").reset();
     this.index++;
-    if (this.index === 10) {
+    if (this.index === this.quiz.length) {
       console.log("Quiz Ended");
+      console.log(this.submittedAns);
+      this.evaluateQuiz.setSubmittedAns(this.submittedAns);
+      this.router.navigateByUrl("/evaluate");
+    } else {
+      this.displayQuestion(this.index);
     }
-    this.displayQuestion(this.index);
   }
 }

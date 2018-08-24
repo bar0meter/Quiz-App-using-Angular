@@ -5,7 +5,7 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root"
 })
 export class SignInService {
-  private _url = "/assets/users";
+  private _url = "/assets/users/";
   constructor(private _http: HttpClient) {}
 
   getuser(user) {
