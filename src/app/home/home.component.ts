@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   difficulty = "";
   agree;
   error: string = "";
+  displayCount: string = "10";
   quizTopics = [
     { category_id: "18", name: "Computer" },
     { category_id: "19", name: "Mathematics" },
@@ -22,6 +23,11 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, private ser: LoadQuizService) {}
 
   ngOnInit() {}
+
+  setQuesCount() {
+    if (this.quesCount === "") this.displayCount = "10";
+    else this.displayCount = this.quesCount;
+  }
 
   startQuiz() {
     if (this.agree) {

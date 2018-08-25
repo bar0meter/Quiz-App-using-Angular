@@ -4,10 +4,7 @@
       <li class="nav-link active" href="#">Home</li>
     </div>
     <div class="nav-item">
-      <li class="nav-link" href="#">About Us</li>
-    </div>
-    <div class="nav-item">
-      <li class="nav-link" href="#">Contact Us</li>
+      <li class="nav-link" [routerLink]="['/about_quiz']" routerLinkActive="router-link-active">About Quiz</li>
     </div>
   </ul>
 </div>
@@ -20,7 +17,7 @@
         <option hidden selected></option>
         <option *ngFor="let cat of quizTopics" value="{{cat.category_id}}">{{cat.name}}</option>
       </select>
-      <input type="text" class="form-control mr-2" placeholder="No of Questions" [(ngModel)]="quesCount" name="quesCount">
+      <input type="text" class="form-control mr-2" placeholder="No of Questions" [(ngModel)]="quesCount" name="quesCount" (change)="setQuesCount()">
       <select class="form-control" [(ngModel)]="difficulty" name="difficulty">
         <option value="" selected></option>
         <option *ngFor="let diff of difficultyLevels" value="{{diff}}">{{diff | uppercase}}</option>
@@ -40,7 +37,7 @@
     </div>
     <div class="card-body">
       <ul>
-        <li>Total 10 Questions</li>
+        <li>Total {{displayCount}} Questions</li>
         <li>Question Types : Multiple Choice,Single Choice, True/False</li>
         <li>Answer once submitted cannot be changed</li>
         <li>Correct Answer : +1 marks</li>
