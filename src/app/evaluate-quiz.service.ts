@@ -12,7 +12,7 @@ export class EvaluateQuizService {
   setSubmittedAns(submittedAns: Object[]) {
     this.quizSubmitted = true;
     this.submittedAns = submittedAns;
-    this.evaluateQuiz(submittedAns);
+    this.evaluateQuiz(this.submittedAns);
   }
 
   evaluateQuiz(submittedAns: Object[]) {
@@ -34,5 +34,9 @@ export class EvaluateQuizService {
 
   isQuizSubmitted() {
     return this.quizSubmitted;
+  }
+
+  getSubmittedAns() {
+    return this.submittedAns;
   }
 }

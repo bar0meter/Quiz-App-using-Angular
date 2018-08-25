@@ -46,9 +46,11 @@ export class QuizComponent implements OnInit {
   }
 
   formatArray(array) {
-    for (let a of array) {
-      a = this.formatText(a);
+    let temp = [];
+    for (var i = 0; i < array.length; i++) {
+      temp[i] = this.formatText(array[i]);
     }
+    return temp;
   }
 
   shuffleArray(array) {
@@ -66,12 +68,11 @@ export class QuizComponent implements OnInit {
     let incorrect_options = quiz.incorrect_answers;
     let options = [...incorrect_options, correct_option];
     this.shuffleArray(options);
-    this.formatArray(options);
     this.currentQues = {
       id: index + 1,
       type: quiz.type === "boolean" ? "True/False" : quiz.type,
       question: this.formatText(quiz.question),
-      options: options,
+      options: this.formatArray(options),
       correctAns: correct_option,
       difficulty: quiz.difficulty
     };
@@ -85,6 +86,7 @@ export class QuizComponent implements OnInit {
   submitAns() {
     let tempAns = {
       index: this.currentQues["id"],
+      question: this.currentQues["question"],
       submittedAns: this.selectedAns,
       correctAns: this.currentQues["correctAns"]
     };

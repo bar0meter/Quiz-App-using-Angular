@@ -17,4 +17,26 @@
       </div>
     </div>
   </div>
+
+  <div class="jumbotron mt-5">
+    <h2 class="text-center">Quiz Overview</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Question No</th>
+          <th>Question</th>
+          <th>Your Answer</th>
+          <th>Correct Answer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ques of submittedAns">
+          <td>{{ques.index}}</td>
+          <td>{{ques.question}}</td>
+          <td>{{ques.submittedAns}}</td>
+          <td>{{ques.correctAns}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
