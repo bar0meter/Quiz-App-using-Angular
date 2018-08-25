@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { LoadQuizService } from "../load-quiz.service";
 
 @Component({
   selector: "app-home",
@@ -7,6 +8,9 @@ import { Router } from "@angular/router";
   styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit {
+  topic = "";
+  quesCount = "";
+  difficulty = "";
   agree;
   error: string = "";
   quizTopics = [
@@ -15,12 +19,14 @@ export class HomeComponent implements OnInit {
     { category_id: "31", name: "Anime/Manga" }
   ];
   difficultyLevels = ["easy", "medium", "hard"];
-  constructor(private router: Router) {}
+  constructor(private router: Router, private ser: LoadQuizService) {}
 
   ngOnInit() {}
 
   startQuiz() {
     if (this.agree) {
+      console.log(this.topic, this.quesCount, this.difficulty);
+      this.ser.setQuiz(this.topic, this.quesCount, this.difficulty);
       this.router.navigateByUrl("/quiz");
       console.log("Starting Quiz");
     } else {
