@@ -10,9 +10,10 @@ import { QuizComponent } from "./quiz/quiz.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { EvaluateComponent } from './evaluate/evaluate.component';
 import { AboutQuizComponent } from './about-quiz/about-quiz.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
-  declarations: [AppComponent, SignInComponent, HomeComponent, QuizComponent, EvaluateComponent, AboutQuizComponent],
+  declarations: [AppComponent, SignInComponent, HomeComponent, QuizComponent, EvaluateComponent, AboutQuizComponent, NavigationComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

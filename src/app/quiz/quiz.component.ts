@@ -10,12 +10,16 @@ import { EvaluateQuizService } from "../evaluate-quiz.service";
   styleUrls: ["./quiz.component.css"]
 })
 export class QuizComponent implements OnInit {
+  prevDisabled: boolean = false;
+  nextDisabled: boolean = false;
+  quesCount: number;
   quizForm: FormGroup;
   quiz;
   quizTitle: string = "Computer Quiz";
   index: number = 0;
   currentQues: Object = {};
   loadQuestion: boolean = false;
+  selectedIndex: number;
   selectedAns: string = "";
   submittedAns: Object[] = [];
   constructor(
@@ -32,74 +36,50 @@ export class QuizComponent implements OnInit {
     this.ser.loadQuiz().subscribe(data => {
       data => data.json();
       this.quiz = data["results"];
+      this.quesCount = this.quiz.length;
+      console.log(this.quiz);
+      this.quiz = this.ser.formatQuiz(this.quiz);
       console.log(this.quiz);
       this.loadQuestion = true;
       this.displayQuestion(this.index);
     });
   }
 
-  formatText(text: string) {
-    let element = document.createElement("textarea");
-    element.innerHTML = text;
-    let decode = element.value;
-    return decode;
-  }
-
-  formatArray(array) {
-    let temp = [];
-    for (var i = 0; i < array.length; i++) {
-      temp[i] = this.formatText(array[i]);
-    }
-    return temp;
-  }
-
-  shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      let temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-  }
-
   displayQuestion(index: number) {
-    let quiz = this.quiz[index];
-    let correct_option = quiz.correct_answer;
-    let incorrect_options = quiz.incorrect_answers;
-    let options = [...incorrect_options, correct_option];
-    this.shuffleArray(options);
-    this.currentQues = {
-      id: index + 1,
-      type: quiz.type === "boolean" ? "True/False" : quiz.type,
-      question: this.formatText(quiz.question),
-      options: this.formatArray(options),
-      correctAns: correct_option,
-      difficulty: quiz.difficulty
-    };
+    this.selectedIndex = -1;
+    this.prevDisabled = index === 0 ? true : false;
+    this.nextDisabled = index === this.quesCount - 1 ? true : false;
+    this.currentQues = this.quiz[index];
+
+    if (this.submittedAns[index]) {
+      this.selectedIndex = this.currentQues["options"].indexOf(
+        this.submittedAns[index]["submittedAns"]
+      );
+    }
   }
 
   getAns(e) {
+    let index = this.currentQues["id"];
     let selectedOption = this.quizForm.get("answers").value;
-    this.selectedAns = this.currentQues["options"][selectedOption];
-  }
-
-  submitAns() {
+    let selectedAns = this.currentQues["options"][selectedOption];
     let tempAns = {
-      index: this.currentQues["id"],
+      index: index,
       question: this.currentQues["question"],
-      submittedAns: this.selectedAns,
+      submittedAns: selectedAns,
       correctAns: this.currentQues["correctAns"]
     };
-    this.submittedAns.push(tempAns);
-    this.quizForm.get("answers").reset();
-    this.index++;
-    if (this.index === this.quiz.length) {
-      console.log("Quiz Ended");
-      console.log(this.submittedAns);
-      this.evaluateQuiz.setSubmittedAns(this.submittedAns);
-      this.router.navigateByUrl("/evaluate");
-    } else {
-      this.displayQuestion(this.index);
-    }
+    this.submittedAns[index - 1] = tempAns;
+    this.selectedIndex = selectedOption;
+  }
+
+  submitQuiz() {
+    console.log("Quiz Ended");
+    console.log(this.submittedAns);
+    this.evaluateQuiz.setSubmittedAns(this.submittedAns);
+    this.router.navigateByUrl("/evaluate");
+  }
+
+  navigate(index) {
+    this.displayQuestion(index - 1);
   }
 }
