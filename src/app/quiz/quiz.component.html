@@ -1,5 +1,7 @@
 <div class="container">
   <div class="row">
+
+    <!-- Quiz Component -->
     <div class="col-md-8">
       <div class="card mx-auto" style="width: 500xp;margin-top: 100px;height :100%">
         <div class="card-header text-center">
@@ -36,6 +38,9 @@
         </div>
       </div>
     </div>
+
+    <!-- Navigation Component -->
+
     <div class="col-md-4">
       <div class="jumbotron mx-auto" style="margin-top: 100px;height :100%">
         <app-navigation [currentQuesNo]="currentQues.id" (navigateToQues)="navigate($event)"></app-navigation>

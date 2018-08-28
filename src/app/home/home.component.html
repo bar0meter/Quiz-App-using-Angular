@@ -19,7 +19,7 @@
       </select>
       <input type="text" class="form-control mr-2" placeholder="No of Questions" [(ngModel)]="quesCount" name="quesCount" (change)="setQuesCount()">
       <select class="form-control" [(ngModel)]="difficulty" name="difficulty">
-        <option value="" selected></option>
+        <option value="" selected hidden></option>
         <option *ngFor="let diff of difficultyLevels" value="{{diff}}">{{diff | uppercase}}</option>
       </select>
     </form>
@@ -39,7 +39,7 @@
       <ul>
         <li>Total {{displayCount}} Questions</li>
         <li>Question Types : Multiple Choice,Single Choice, True/False</li>
-        <li>Answer once submitted cannot be changed</li>
+        <li>All questions are compulsory</li>
         <li>Correct Answer : +1 marks</li>
         <li>No negative Marking</li>
       </ul>

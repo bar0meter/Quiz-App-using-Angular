@@ -73,6 +73,10 @@ export class QuizComponent implements OnInit {
   }
 
   submitQuiz() {
+    if (this.submittedAns.length !== this.quesCount) {
+      alert("You need to answer all the questions");
+      return;
+    }
     console.log("Quiz Ended");
     console.log(this.submittedAns);
     this.evaluateQuiz.setSubmittedAns(this.submittedAns);
